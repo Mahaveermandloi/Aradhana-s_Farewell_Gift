@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vercel/blob": "^2.8.0",
     "axios": "^1.19.0",
     "cors": "^2.8.6",
     "express": "^5.2.1",
+    "formidable": "^3.5.4",
     "multer": "^2.2.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

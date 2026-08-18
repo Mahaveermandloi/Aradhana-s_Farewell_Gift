@@ -16,7 +16,7 @@ export default function GallerySection() {
     try {
       setError("");
 
-      const response = await axios.get("http://localhost:5000/api/gallery");
+      const response = await axios.get("/api/gallery");
 
       console.log("Gallery response:", response.data);
 
