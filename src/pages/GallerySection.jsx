@@ -1,15 +1,44 @@
-import { useState } from "react";
-
-const galleryImages = [
-  "/photos/img1.jpeg",
-  "/photos/img2.jpeg",
-  "/photos/img3.jpeg",
-  "/photos/img4.jpeg",
-  "/photos/img5.jpeg",
-];
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function GallerySection() {
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [galleryVideos, setGalleryVideos] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  // =================================================
+  // FETCH GALLERY
+  // =================================================
+
+  const fetchGallery = async () => {
+    try {
+      setError("");
+
+      const response = await axios.get("http://localhost:5000/api/gallery");
+
+      console.log("Gallery response:", response.data);
+
+      setGalleryImages(response.data.images || []);
+
+      setGalleryVideos(response.data.videos || []);
+    } catch (error) {
+      console.error("Gallery fetch error:", error);
+
+      setError("Unable to load gallery.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // =================================================
+  // FETCH WHEN COMPONENT LOADS
+  // =================================================
+
+  useEffect(() => {
+    fetchGallery();
+  }, []);
 
   return (
     <>
@@ -25,7 +54,10 @@ export default function GallerySection() {
           lg:px-10
         "
       >
+        {/* ================================================= */}
         {/* GALLERY HEADER */}
+        {/* ================================================= */}
+
         <div className="mb-6 flex items-end justify-between font-awake">
           <div>
             <p className="text-xs uppercase tracking-[0.25em] text-gray-400">
@@ -42,40 +74,127 @@ export default function GallerySection() {
           </p>
         </div>
 
+        {/* ================================================= */}
+        {/* LOADING */}
+        {/* ================================================= */}
+
+        {loading && (
+          <div className="flex min-h-[300px] items-center justify-center">
+            <p className="text-sm text-gray-400">Loading memories... ❤️</p>
+          </div>
+        )}
+
+        {/* ================================================= */}
+        {/* ERROR */}
+        {/* ================================================= */}
+
+        {!loading && error && (
+          <div className="flex min-h-[300px] items-center justify-center">
+            <p className="text-sm text-red-400">{error}</p>
+          </div>
+        )}
+
+        {/* ================================================= */}
+        {/* EMPTY GALLERY */}
+        {/* ================================================= */}
+
+        {!loading &&
+          !error &&
+          galleryImages.length === 0 &&
+          galleryVideos.length === 0 && (
+            <div className="flex min-h-[300px] items-center justify-center">
+              <p className="text-sm text-gray-400">
+                No memories uploaded yet ❤️
+              </p>
+            </div>
+          )}
+
+        {/* ================================================= */}
         {/* PINTEREST GALLERY */}
-        <div className="columns-2 gap-4 sm:columns-3 lg:columns-4 xl:columns-5">
-          {galleryImages.map((image, index) => (
+        {/* ================================================= */}
+
+        {!loading &&
+          !error &&
+          (galleryImages.length > 0 || galleryVideos.length > 0) && (
             <div
-              key={image}
-              onClick={() => setSelectedImage(image)}
               className="
-                group
-                mb-4
-                break-inside-avoid
-                cursor-pointer
-                overflow-hidden
-                rounded-2xl
-                bg-white
+                columns-2
+                gap-4
+                sm:columns-3
+                lg:columns-4
+                xl:columns-5
               "
             >
-              <img
-                src={image}
-                alt={`Memory ${index + 1}`}
-                className="
-                  block
-                  w-full
-                  object-cover
-                  transition-transform
-                  duration-500
-                  group-hover:scale-110
-                "
-              />
+              {/* ================================================= */}
+              {/* IMAGES */}
+              {/* ================================================= */}
+
+              {galleryImages.map((image, index) => (
+                <div
+                  key={`image-${image.name}`}
+                  onClick={() => setSelectedImage(image.url)}
+                  className="
+                      group
+                      mb-4
+                      break-inside-avoid
+                      cursor-pointer
+                      overflow-hidden
+                      rounded-2xl
+                      bg-white
+                    "
+                >
+                  <img
+                    src={image.url}
+                    alt={`Memory ${index + 1}`}
+                    loading="lazy"
+                    className="
+                        block
+                        w-full
+                        object-cover
+                        transition-transform
+                        duration-500
+                        group-hover:scale-110
+                      "
+                  />
+                </div>
+              ))}
+
+              {/* ================================================= */}
+              {/* VIDEOS */}
+              {/* ================================================= */}
+
+              {galleryVideos.map((video) => (
+                <div
+                  key={`video-${video.name}`}
+                  className="
+                      group
+                      mb-4
+                      break-inside-avoid
+                      overflow-hidden
+                      rounded-2xl
+                      bg-white
+                    "
+                >
+                  <video
+                    src={video.url}
+                    controls
+                    preload="metadata"
+                    className="
+                        block
+                        w-full
+                        rounded-2xl
+                      "
+                  />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          )}
       </section>
 
+      {/* ================================================= */}
       {/* IMAGE POPUP */}
+      {/* ================================================= */}
+
       {selectedImage && (
         <div
           className="
@@ -92,11 +211,18 @@ export default function GallerySection() {
           onClick={() => setSelectedImage(null)}
         >
           {/* IMAGE CONTAINER */}
+
           <div
-            className="relative inline-block"
+            className="
+              relative
+              inline-block
+            "
             onClick={(e) => e.stopPropagation()}
           >
+            {/* ================================================= */}
             {/* CLOSE BUTTON */}
+            {/* ================================================= */}
+
             <button
               type="button"
               onClick={() => setSelectedImage(null)}
@@ -146,7 +272,10 @@ export default function GallerySection() {
               </svg>
             </button>
 
+            {/* ================================================= */}
             {/* ENLARGED IMAGE */}
+            {/* ================================================= */}
+
             <img
               src={selectedImage}
               alt="Enlarged memory"
