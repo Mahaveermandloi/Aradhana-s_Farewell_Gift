@@ -1,0 +1,86 @@
+.loader-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #252432;
+}
+
+.cat {
+  margin: auto;
+  position: relative;
+  width: 16em;
+  height: 16em;
+}
+
+/* Your existing .cat__segment styles go here */
+
+.cat__segment {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3em;
+  height: 2em;
+  transform: translate(-50%, -50%);
+}
+
+.cat__segment:before {
+  animation: loop 2s cubic-bezier(0.6, 0, 0.4, 1) infinite running;
+  background: linear-gradient(
+    90deg,
+    white 20%,
+    #e6e6e6 20% 80%,
+    white 80%
+  );
+  border-radius: 0.25em;
+  content: "";
+  display: block;
+  will-change: transform;
+  width: 100%;
+  height: 100%;
+}
+
+/* Keep your existing first-of-type CSS */
+.cat__segment:first-of-type {
+  width: 4em;
+  height: 4em;
+  z-index: 1;
+}
+
+/* Keep your existing first-of-type:before CSS here */
+
+
+/* Keep your existing last-of-type CSS */
+.cat__segment:last-of-type {
+  width: 3em;
+  height: 4em;
+}
+
+/* Keep your existing last-of-type:before CSS here */
+
+
+/* Instead of writing 30 nth-of-type rules manually,
+   generate the rotations with CSS variables. */
+
+.cat__segment {
+  --angle: calc((var(--i) - 16) * 1.333333deg);
+}
+
+.cat__segment:before {
+  animation-delay: calc((var(--i) - 1) * 0.02s);
+  transform: translateX(6em);
+}
+
+@keyframes loop {
+  from {
+    transform: rotate(0) translateX(6em);
+  }
+
+  to {
+    transform: rotate(-1turn) translateX(6em);
+  }
+}

@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Awake";
+  src: url("/fonts/Awake.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Disca";
+  src: url("/fonts/Disca.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
