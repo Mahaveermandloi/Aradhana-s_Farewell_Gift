@@ -8,7 +8,11 @@ export default function LoginPage({ onClose }) {
   const [showUpload, setShowUpload] = useState(false);
 
   const VALID_ID = "kpmg";
-  const VALID_PASSWORD = "farewell123";
+  const VALID_PASSWORD = "kpmg";
+
+  // =================================================
+  // LOGIN
+  // =================================================
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -21,7 +25,10 @@ export default function LoginPage({ onClose }) {
     }
   };
 
-  // After successful login, show upload page
+  // =================================================
+  // SHOW UPLOAD PAGE AFTER LOGIN
+  // =================================================
+
   if (showUpload) {
     return (
       <UploadContent
@@ -30,12 +37,71 @@ export default function LoginPage({ onClose }) {
     );
   }
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
-      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-2xl">
+  // =================================================
+  // LOGIN MODAL
+  // =================================================
 
+  return (
+    <div
+      className="
+        fixed
+        inset-0
+        z-[100]
+        flex
+        items-center
+        justify-center
+        bg-black/50
+        px-4
+        backdrop-blur-sm
+      "
+    >
+
+      <div
+        className="
+          relative
+          w-full
+          max-w-md
+          rounded-2xl
+          bg-white
+          p-8
+          shadow-2xl
+        "
+      >
+
+        {/* ================================================= */}
+        {/* CLOSE BUTTON */}
+        {/* ================================================= */}
+
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+          className="
+            absolute
+            right-4
+            top-4
+            flex
+            h-8
+            w-8
+            items-center
+            justify-center
+            rounded-full
+            text-xl
+            text-gray-500
+            transition
+            hover:bg-gray-100
+            hover:text-gray-800
+          "
+        >
+          ×
+        </button>
+
+        {/* ================================================= */}
         {/* HEADER */}
+        {/* ================================================= */}
+
         <div className="mb-6">
+
           <h2 className="text-2xl font-semibold text-gray-800">
             Upload Memories
           </h2>
@@ -43,13 +109,21 @@ export default function LoginPage({ onClose }) {
           <p className="mt-1 text-sm text-gray-500">
             Enter your credentials to continue
           </p>
+
         </div>
 
+        {/* ================================================= */}
         {/* FORM */}
+        {/* ================================================= */}
+
         <form onSubmit={handleLogin}>
 
+          {/* ================================================= */}
           {/* ID */}
+          {/* ================================================= */}
+
           <div className="mb-4">
+
             <label className="mb-2 block text-sm font-medium text-gray-700">
               ID
             </label>
@@ -57,14 +131,35 @@ export default function LoginPage({ onClose }) {
             <input
               type="text"
               value={userId}
-              onChange={(e) => setUserId(e.target.value)}
+              onChange={(e) => {
+                setUserId(e.target.value);
+                setError("");
+              }}
               placeholder="Enter ID"
-              className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-gray-800"
+              autoComplete="username"
+              className="
+                w-full
+                rounded-xl
+                border
+                border-gray-300
+                px-4
+                py-3
+                outline-none
+                transition
+                focus:border-gray-800
+                focus:ring-2
+                focus:ring-gray-200
+              "
             />
+
           </div>
 
+          {/* ================================================= */}
           {/* PASSWORD */}
+          {/* ================================================= */}
+
           <div className="mb-4">
+
             <label className="mb-2 block text-sm font-medium text-gray-700">
               Password
             </label>
@@ -72,40 +167,101 @@ export default function LoginPage({ onClose }) {
             <input
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setError("");
+              }}
               placeholder="Enter password"
-              className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-gray-800"
+              autoComplete="current-password"
+              className="
+                w-full
+                rounded-xl
+                border
+                border-gray-300
+                px-4
+                py-3
+                outline-none
+                transition
+                focus:border-gray-800
+                focus:ring-2
+                focus:ring-gray-200
+              "
             />
+
           </div>
 
+          {/* ================================================= */}
           {/* ERROR */}
+          {/* ================================================= */}
+
           {error && (
-            <p className="mb-4 text-sm text-red-500">
+            <p
+              className="
+                mb-4
+                rounded-lg
+                bg-red-50
+                px-3
+                py-2
+                text-sm
+                text-red-500
+              "
+            >
               {error}
             </p>
           )}
 
+          {/* ================================================= */}
           {/* BUTTONS */}
+          {/* ================================================= */}
+
           <div className="flex gap-3">
+
+            {/* CANCEL */}
 
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 rounded-xl border border-gray-300 py-3 text-sm font-medium"
+              className="
+                flex-1
+                rounded-xl
+                border
+                border-gray-300
+                py-3
+                text-sm
+                font-medium
+                text-gray-700
+                transition
+                hover:bg-gray-50
+              "
             >
               Cancel
             </button>
 
+            {/* LOGIN */}
+
             <button
               type="submit"
-              className="flex-1 rounded-xl bg-gray-800 py-3 text-sm font-medium text-white hover:bg-black"
+              className="
+                flex-1
+                rounded-xl
+                bg-gray-800
+                py-3
+                text-sm
+                font-medium
+                text-white
+                transition
+                hover:bg-black
+                active:scale-[0.98]
+              "
             >
               Login
             </button>
 
           </div>
+
         </form>
+
       </div>
     </div>
   );
-}   
+}
