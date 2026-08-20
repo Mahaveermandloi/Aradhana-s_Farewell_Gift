@@ -210,8 +210,8 @@ export default function HomePage() {
           {/* TOP BAR */}
           {/* ================================================= */}
 
-          <div className="absolute left-0 right-0 top-0 z-30 flex items-center justify-between p-5 md:p-7">
-            {/* TITLE */}
+          {/* <div className="absolute left-0 right-0 top-0 z-30 flex items-center justify-between p-5 md:p-7">
+        
 
             <div className="text-white">
               <h1 className="text-xl font-awake tracking-wide md:text-2xl">
@@ -223,12 +223,8 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* ================================================= */}
-            {/* RIGHT BUTTONS */}
-            {/* ================================================= */}
-
             <div className="flex items-center gap-2">
-              {/* SOUND BUTTON */}
+           
 
               <button
                 type="button"
@@ -273,7 +269,7 @@ export default function HomePage() {
                 )}
               </button>
 
-              {/* UPLOAD BUTTON */}
+          
 
               <button
                 type="button"
@@ -321,7 +317,168 @@ export default function HomePage() {
                 + Upload
               </button>
             </div>
-          </div>
+          </div> */}
+
+          <div className="absolute left-0 right-0 top-0 z-30 flex items-center justify-between p-3 md:p-7">
+
+  {/* TITLE */}
+  <div className="max-w-[130px] text-white md:max-w-none">
+    <h1 className="font-awake text-base tracking-wide md:text-2xl lg:text-xl">
+      Our Memories with Aradhana❤️
+    </h1>
+
+    <p className="mt-1 text-[10px] text-white/80 md:text-sm">
+      A little collection of our BSR memories
+    </p>
+  </div>
+
+  {/* BUTTONS */}
+  <div className="flex items-center gap-1.5 md:gap-2">
+
+    {/* SOUND BUTTON */}
+    <button
+      type="button"
+      onClick={toggleSound}
+      aria-label={isPlaying ? "Pause sound" : "Play sound"}
+      className="
+        flex
+        h-9
+        w-9
+        shrink-0
+        items-center
+        justify-center
+        rounded-full
+        border
+        border-white/40
+        bg-white/10
+        text-white
+        backdrop-blur-md
+        transition
+        duration-300
+        hover:bg-white/25
+        active:scale-95
+        md:h-10
+        md:w-10
+      "
+    >
+      {isPlaying ? (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="h-4 w-4"
+        >
+          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+        </svg>
+      ) : (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="h-4 w-4"
+        >
+          <path d="M8 5v14l11-7L8 5z" />
+        </svg>
+      )}
+    </button>
+
+    {/* MESSAGE BUTTON */}
+    <button
+      type="button"
+      onClick={() => setShowMessage(true)}
+      aria-label="Aradhana a message for you"
+      className="
+        flex
+        h-9
+        w-9
+        shrink-0
+        items-center
+        justify-center
+        rounded-full
+        border
+        border-white/40
+        bg-white/10
+        text-white
+        backdrop-blur-md
+        transition
+        duration-300
+        hover:bg-white/25
+        active:scale-95
+        md:h-auto
+        md:w-auto
+        md:rounded-full
+        md:px-5
+        md:py-2.5
+        md:text-sm
+      "
+    >
+      {/* Mobile icon */}
+      <span className="text-lg md:hidden">💌</span>
+
+      {/* Desktop text */}
+      <span className="hidden md:inline">
+        Aradhana a message for you 💖
+      </span>
+    </button>
+
+    {/* UPLOAD BUTTON */}
+    <button
+      type="button"
+      onClick={() => setShowLogin(true)}
+      aria-label="Upload"
+      className="
+        flex
+        h-9
+        w-9
+        shrink-0
+        items-center
+        justify-center
+        rounded-full
+        border
+        border-white/40
+        bg-white/10
+        text-white
+        backdrop-blur-md
+        transition
+        duration-300
+        hover:bg-white/25
+        active:scale-95
+        md:h-auto
+        md:w-auto
+        md:px-5
+        md:py-2.5
+        md:text-sm
+      "
+    >
+      {/* Upload icon on mobile */}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        className="h-5 w-5 md:hidden"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 16V4m0 0L7 9m5-5 5 5"
+        />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"
+        />
+      </svg>
+
+      {/* Desktop text */}
+      <span className="hidden md:inline">
+        + Upload
+      </span>
+    </button>
+
+  </div>
+</div>
 
           {/* ================================================= */}
           {/* CENTER QUOTE */}
